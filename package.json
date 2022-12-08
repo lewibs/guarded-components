@@ -1,6 +1,6 @@
 {
   "name": "guarded-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "author": "lewibs",
   "description": "A jsx tag for hiding or providing action on components",
