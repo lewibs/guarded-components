@@ -1,4 +1,4 @@
 //ADD EXPORTS HERE
-import Guard from './lib/Guard';
-import createStrategy from './lib/createStrategy';
+import Guard from './Guard';
+import createStrategy from './createStrategy';
 export {Guard, createStrategy};
