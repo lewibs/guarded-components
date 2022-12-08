@@ -2,8 +2,8 @@
 
 # dependencies
 /node_modules
-/build
-/build.zip
+/dist
+/dist.zip
 /.pnp
 .pnp.js
 
