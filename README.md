@@ -1,73 +1,63 @@
-https://levelup.gitconnected.com/publish-react-components-as-an-npm-package-7a671a2fb7f
-
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# guarded-components
+This is used to protect pages or components such as buttons based on the user's state. It seems that this is a common problem in industry and there are no packages that I am aware of which work for most jsx compatible frameworks with any authorization strategies. This package allows the user to take control of this problem by simply defining strategies based on contracts which they determine.
+ 
+ 
+# details
+| Importables | about |
+| Guard | this is the jsx component which will be wrapped around a child component or a page. It takes either a single strategy or an array of strategies under the strategy prop. Additionally there is the hide prop which if included will cause the children to be hidden on failure to support the contract |
+| createStrategy | this is a function which is used to make a strategy. It takes a contract. A contract is an object which has three fields. Shall, get, and breach. Shall is an identification which must be matched. This could be any type of value but I recommend string or number. get is a function which takes no input but returns the current state of the user. Breach is the action which shall be taken if the contract is broken. Breach however will not be enacted if hide is attached to the guard as hide is the action which is taken |
+ 
+# example
+This is a basic example showing the different types of guards that you could have. Note the differences in the contracts and the combination of strategies.
+ 
+```js
+import {Guard, createStrategy} from "guarded-components";
+ 
+const loggedin = createStrategy(
+  {
+    shall: true,
+    get: ()=>user.isLoggedin(),
+    breach: ()=>{window.href.location = "www.website.com/login"}
+  },
+);
+ 
+const admin = createStrategy(
+  {
+    shall: "admin",
+    get: ()=>user.getRoles().admin,
+    breach: ()=>{window.href.location = "www.website.com"}
+  },
+);
+ 
+<Guard
+    strategy={loggedin}
+>
+    Make sure you are loggedin otherwise you are getting redirected!
+</Guard>
+<br></br>
+<Guard
+    strategy={admin}
+    hide
+>
+    If you aren't an admin you can't see me.
+</Guard>
+<br></br>
+<Guard
+    strategy={[admin, loggedin]}
+>
+    You have to be an admin AND loggedin :/
+</Guard>
+```
+ 
+This should theoretically support things such as react-redux. However I have not tested it. It would probably look something like this. You might need to use a useRef for the selector
+ 
+```js
+//This is an example contract if you were using something like react-redux
+const state = useSelector((store)=>store.admin.state);
+ 
+{
+    shall: "admin"
+    get: ()=>{state},
+    breach: ()=>{alert("NO YOU CANT DO THAT!")}
+}
+```
