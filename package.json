@@ -1,6 +1,6 @@
 {
   "name": "guarded-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "A jsx tag for hiding or providing action on components",
   "keywords": ["guard, react, authorization, auth, redux, jwt"],
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/lewibs/guarded-components.git"
   },
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
