@@ -4,6 +4,7 @@ This is used to protect pages or components such as buttons based on the user's 
  
 # details
 | Importables | about |
+| ----------- | ----------- |
 | Guard | this is the jsx component which will be wrapped around a child component or a page. It takes either a single strategy or an array of strategies under the strategy prop. Additionally there is the hide prop which if included will cause the children to be hidden on failure to support the contract |
 | createStrategy | this is a function which is used to make a strategy. It takes a contract. A contract is an object which has three fields. Shall, get, and breach. Shall is an identification which must be matched. This could be any type of value but I recommend string or number. get is a function which takes no input but returns the current state of the user. Breach is the action which shall be taken if the contract is broken. Breach however will not be enacted if hide is attached to the guard as hide is the action which is taken |
  
