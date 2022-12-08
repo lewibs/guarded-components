@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/lewibs/guarded-components/main/images/guard.PNG" />
+</p>
+
 # guarded-components
 This is used to protect pages or components such as buttons based on the user's state. It seems that this is a common problem in industry and there are no packages that I am aware of which work for most jsx compatible frameworks with any authorization strategies. This package allows the user to take control of this problem by simply defining strategies based on contracts which they determine.
  
