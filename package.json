@@ -1,8 +1,9 @@
 {
   "name": "guarded-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "author": "lewibs",
+  "main": "dist/index.js",
   "description": "A jsx tag for hiding or providing action on components",
   "keywords": ["guard, react, authorization, auth, redux, jwt"],
   "dependencies": {
