@@ -18,6 +18,8 @@ function Guard({strategy=[], hide=false, children}) {
         //if false and false then true
         if (hide === fullfillsRequirement || fullfillsRequirement) {
             setRet(children);
+        } else {
+            setRet(undefined);
         }
     }, [strategy, require, hide]);
 
