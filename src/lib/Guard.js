@@ -4,23 +4,30 @@ function Guard({strategy=[], hide=false, children}) {
     const [ret, setRet] = useState();
 
     useEffect(()=>{
-        if (!Array.isArray(strategy)) {
-            strategy = [strategy];
-        }
+        (async ()=>{
+            if (!Array.isArray(strategy)) {
+                strategy = [strategy];
+            }
+    
+            let fullfillsRequirement;
+            for (let i = 0; i < strategy.length; i++) {
+                fullfillsRequirement = await strategy({action: !hide});
 
-        const fullfillsRequirement = strategy.reduce((state, strategy)=>{
-            return state && strategy({action:!hide});
-        }, true);
-
-        //if true and true then true
-        //if false and true then true
-        //if true and false then false
-        //if false and false then true
-        if (hide === fullfillsRequirement || fullfillsRequirement) {
-            setRet(children);
-        } else {
-            setRet(undefined);
-        }
+                if (!fullfillsRequirement) {
+                    break;
+                }
+            }
+    
+            //if true and true then true
+            //if false and true then true
+            //if true and false then false
+            //if false and false then true
+            if (hide === fullfillsRequirement || fullfillsRequirement) {
+                setRet(children);
+            } else {
+                setRet(undefined);
+            }
+        })()
     }, [strategy, require, hide]);
 
     return ret;
