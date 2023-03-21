@@ -11,7 +11,7 @@ function Guard({strategy=[], hide=false, children}) {
     
             let fullfillsRequirement;
             for (let i = 0; i < strategy.length; i++) {
-                fullfillsRequirement = await strategy({action: !hide});
+                fullfillsRequirement = await strategy[i]({action: !hide});
 
                 if (!fullfillsRequirement) {
                     break;
