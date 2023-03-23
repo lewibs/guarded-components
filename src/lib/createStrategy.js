@@ -5,13 +5,13 @@ export default function createStrategy(...contracts) {
         isContract(contract, {throw:true})
     });
 
-    return function strategy({
+    return async function strategy({
         action=true,
     }) {
         for (let i = 0; i < contracts.length; i++) {
-            if (contracts[i].get() !== contracts[i].shall) {
+            if (await contracts[i].get() !== contracts[i].shall) {
                 if (action) {
-                    contracts[i].breach();
+                    await contracts[i].breach();
                 }
                 return false;
             }
