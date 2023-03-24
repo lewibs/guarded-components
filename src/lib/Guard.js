@@ -7,6 +7,7 @@ function Guard({strategy=[], hide=false, children}) {
         if (!Array.isArray(strategy)) {
             strategy = [strategy];
         }
+
         if (strategy.length) {
             (async ()=>{
                 let fullfillsRequirement;
@@ -28,7 +29,7 @@ function Guard({strategy=[], hide=false, children}) {
                     setRet(undefined);
                 }
             })()
-        } else {
+        } else { // if there are no strategies we can just skip everything
             setRet(children);
         }
     }, [strategy, require, hide]);
