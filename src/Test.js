@@ -1,5 +1,6 @@
 import Guard from "./lib/Guard";
 import createStrategy from "./lib/createStrategy";
+import delay from 'delay';
 
 const admin = createStrategy(
   {
@@ -16,6 +17,15 @@ const user = createStrategy(
     breach: ()=>{console.warn("failed to be a user")}
   },
 );
+
+const slowGet = createStrategy({
+  shall: 'slow',
+  get: async ()=>{
+    await delay(1000);
+    return "slow";
+  },
+  breach: ()=>{console.warn("failed to get slow")}
+})
 
 function Test() {
   return(
@@ -50,6 +60,13 @@ function Test() {
         strategy={[admin, user]}
       >
         I am a protected user and an admin. i failed requirements!
+      </Guard>
+      <br></br>
+      <Guard
+        strategy={[slowGet]}
+        hide
+      >
+        I am slow to appear because i make a backend call
       </Guard>
       <br></br>
       <Guard

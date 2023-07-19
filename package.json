@@ -5,7 +5,9 @@
   "author": "lewibs",
   "main": "dist/index.js",
   "description": "A jsx tag for hiding or providing action on components",
-  "keywords": ["guard, react, authorization, auth, redux, jwt"],
+  "keywords": [
+    "guard, react, authorization, auth, redux, jwt"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -46,6 +48,7 @@
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
-    "@babel/preset-env": "^7.20.2"
+    "@babel/preset-env": "^7.20.2",
+    "delay": "^6.0.0"
   }
 }

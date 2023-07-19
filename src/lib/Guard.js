@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Guard({strategy=[], hide=false, children}) {
+function Guard({strategy, hide=false, children}) {
     const [ret, setRet] = useState();
 
     useEffect(()=>{
@@ -8,7 +8,7 @@ function Guard({strategy=[], hide=false, children}) {
             strategy = [strategy];
         }
 
-        if (strategy.length) {
+        if (strategy && strategy.length) {
             (async ()=>{
                 let fullfillsRequirement;
                 for (let i = 0; i < strategy.length; i++) {
@@ -29,7 +29,7 @@ function Guard({strategy=[], hide=false, children}) {
                     setRet(undefined);
                 }
             })()
-        } else { // if there are no strategies we can just skip everything
+        } else if (strategy && strategy.length === 0) { // if there are no strategies we can just skip everything
             setRet(children);
         }
     }, [strategy, require, hide]);
