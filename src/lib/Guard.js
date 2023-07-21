@@ -4,7 +4,7 @@ function Guard({strategy, hide=false, children}) {
     const [ret, setRet] = useState();
 
     useEffect(()=>{
-        if (!Array.isArray(strategy)) {
+        if (strategy && !Array.isArray(strategy)) {
             strategy = [strategy];
         }
 
