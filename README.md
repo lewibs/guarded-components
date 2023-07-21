@@ -52,6 +52,12 @@ const admin = createStrategy(
 >
     You have to be an admin AND loggedin :/
 </Guard>
+<br></br>
+<Guard
+    strategy={[admin, loggedin]}
+>
+    You have to be an admin AND loggedin :/
+</Guard>
 ```
  
 This should theoretically support things such as react-redux. However I have not tested it. It would probably look something like this. You might need to use a useRef for the selector

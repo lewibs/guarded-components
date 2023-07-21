@@ -75,6 +75,32 @@ function Test() {
       >
         I am a hidden user and an admin. i failed requirements!
       </Guard>
+
+      <Guard
+        strategy={[user, admin]}
+        hide
+      >
+        I am a hidden user and an admin. i failed requirements!
+      </Guard>
+      <br></br>
+      <Guard
+        strategy={user}
+        failHtml={"right"}
+        successHtml={"wrong"}
+      />
+      <br></br>
+      <Guard
+        strategy={admin}
+        failHtml={"wrong"}
+        successHtml={"right"}
+      />
+      {/* <Guard
+        strategy={[user, admin]}
+        successHtml={"this should fail since it can only have children or successHtml"}
+        hide
+      >
+        this should fail since it can only have children or successHtml
+      </Guard> */}
     </div>
   );
 }
