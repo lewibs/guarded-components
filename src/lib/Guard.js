@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-function Guard({strategy, hide=false, children}) {
+function Guard({strategy, hide=false, failHtml, successHtml, children}) {
     const [ret, setRet] = useState();
 
     useEffect(()=>{
         if (strategy && !Array.isArray(strategy)) {
             strategy = [strategy];
+        } else if (!strategy) {
+            strategy = [];
         }
 
         if (strategy && strategy.length) {
@@ -24,13 +26,13 @@ function Guard({strategy, hide=false, children}) {
                 //if true and false then false
                 //if false and false then true
                 if (hide === fullfillsRequirement || fullfillsRequirement) {
-                    setRet(children);
+                    setRet(successHtml || children);
                 } else {
-                    setRet(undefined);
+                    setRet(failHtml || undefined);
                 }
             })()
         } else if (strategy && strategy.length === 0) { // if there are no strategies we can just skip everything
-            setRet(children);
+            setRet(successHtml || children);
         }
     }, [strategy, require, hide]);
 
