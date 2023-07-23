@@ -28,12 +28,14 @@ function Guard({strategy, hide=false, failHtml, successHtml, children}) {
                 let fullfillsRequirement;
                 for (let i = 0; i < strategy.length; i++) {
                     fullfillsRequirement = await strategy[i]({action: !hide});
-                    console.log(fullfillsRequirement);
                     if (!fullfillsRequirement) {
                         break;
                     }
                 }
         
+                fullfillsRequirement = false;
+                hide = false;
+                failHtml = true;
                 //if true and true then true
                 //if false and true then true
                 //if true and false then false

@@ -2,6 +2,10 @@ import { isContract } from "./isContract"
 
 export default function createStrategy(...contracts) {
     contracts.forEach((contract)=>{
+        if (!contract.breach) {
+            contract.breach = ()=>{};
+        }
+
         isContract(contract, {throw:true})
     });
 

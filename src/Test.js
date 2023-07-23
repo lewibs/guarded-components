@@ -27,6 +27,11 @@ const slowGet = createStrategy({
   breach: ()=>{console.warn("failed to get slow")}
 })
 
+const fail = createStrategy({
+  shall:"nah",
+  get: ()=>"please",
+})
+
 function Test() {
   return(
     <div>
@@ -93,6 +98,11 @@ function Test() {
         strategy={admin}
         failHtml={"wrong"}
         successHtml={"right"}
+      />
+      <Guard 
+        strategy={fail}
+        failHtml={"expected"}
+        successHtml={"unexpected"}
       />
       {/* <Guard
         strategy={[user, admin]}
