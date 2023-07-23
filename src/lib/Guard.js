@@ -7,9 +7,10 @@ import React, { useEffect, useState } from "react";
  * @param {*} failHtml this is what is rendered by react and placed as the child of this
  * @param {*} successHtml this is what is rendered when it succeeds
  * @param {*} children this is what is rendered when it succeeds  
+ * @param {boolean} log this is to log input just to help with debugging
  * @returns 
  */
-function Guard({strategy, hide=false, failHtml, successHtml, children}) {
+function Guard({strategy, hide=false, failHtml, successHtml, children, log}) {
     const [ret, setRet] = useState();
 
     if (successHtml && children) {
@@ -27,30 +28,35 @@ function Guard({strategy, hide=false, failHtml, successHtml, children}) {
             (async ()=>{
                 let fullfillsRequirement;
                 for (let i = 0; i < strategy.length; i++) {
+                    log && console.log(strategy);
+
                     fullfillsRequirement = await strategy[i]({action: !hide});
                     if (!fullfillsRequirement) {
+                        log && console.log("failed to fullfill requirement");
                         break;
                     }
                 }
         
-                fullfillsRequirement = false;
-                hide = false;
-                failHtml = true;
                 //if true and true then true
                 //if false and true then true
                 //if true and false then false
                 //if false and false then true
+                log && console.log(fullfillsRequirement, hide, successHtml, failHtml, children);
                 if (hide === fullfillsRequirement || fullfillsRequirement) {
                     if (fullfillsRequirement === false && failHtml && hide === false) {
+                        log && console.log(1, "displaying fail")
                         setRet(failHtml);
                     } else {
+                        log && console.log(2, "displaying success")
                         setRet(successHtml || children);
                     }
                 } else {
+                    log && console.log(3, "displaying fail");
                     setRet(failHtml || undefined);
                 }
             })()
         } else if (strategy && strategy.length === 0) { // if there are no strategies we can just skip everything
+            log && console.log(4, "displaying success")
             setRet(successHtml || children);
         }
     }, [strategy, require, hide]);
