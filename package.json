@@ -1,6 +1,6 @@
 {
   "name": "guarded-components",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": false,
   "author": "lewibs",
   "main": "dist/index.js",
@@ -13,6 +13,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "core-js": "^3.33.0",
     "ducktyper": "^4.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
